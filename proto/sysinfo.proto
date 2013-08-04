@@ -1,0 +1,140 @@
+// Copyright 2011 Google Inc. All Rights Reserved
+
+// Protobufs for information about a system
+
+syntax = "proto2";
+
+import "grr/proto/semantic.proto";
+
+
+// A Process record describing a system process.
+message Process {
+  optional uint32 pid = 1;
+  optional uint32 ppid = 2;
+  optional string name = 3;
+  optional string exe = 4;
+  repeated string cmdline = 5;
+  optional uint64 ctime = 6;
+  optional uint32 real_uid = 7;
+  optional uint32 effective_uid = 8;
+  optional uint32 saved_uid = 9;
+  optional uint32 real_gid = 10;
+  optional uint32 effective_gid = 11;
+  optional uint32 saved_gid = 12;
+  optional string username = 13;
+  optional string terminal = 14;
+  optional string status = 15;
+  optional int32 nice = 16;
+  optional string cwd = 17;
+  optional uint32 num_threads = 18;
+  optional float user_cpu_time = 19;
+  optional float system_cpu_time = 20;
+  optional float cpu_percent = 21;
+  optional uint64 RSS_size = 22;
+  optional uint64 VMS_size = 23;
+  optional float memory_percent = 24;
+  repeated string open_files = 25;
+  repeated NetworkConnection connections = 26;
+}
+
+message NetworkEndpoint {
+  optional string ip = 1;
+  optional int32 port = 2;
+}
+
+message NetworkConnection {
+  enum Family {
+    INET = 2;
+    INET6 = 10;
+    INET6_WIN = 23;
+    INET6_OSX = 30;
+  };
+  enum Type {
+    UNKNOWN_SOCKET = 0;
+    SOCK_STREAM = 1;
+    SOCK_DGRAM = 2;
+  };
+
+  optional Family family = 1;
+  optional Type type = 2 [default = UNKNOWN_SOCKET];
+  optional NetworkEndpoint local_address = 3;
+  optional NetworkEndpoint remote_address = 4;
+
+  enum State {
+    UNKNOWN = 0;
+    CLOSED = 1;
+    LISTEN = 2;
+    SYN_SENT = 3;
+    SYN_RCVD = 4;
+    ESTAB = 5;
+    FIN_WAIT1 = 6;
+    FIN_WAIT2 = 7;
+    CLOSE_WAIT = 8;
+    CLOSING = 9;
+    LAST_ACK = 10;
+    TIME_WAIT = 11;
+    DELETE_TCB = 12;
+  };
+  optional State state = 5 [default = UNKNOWN];
+  optional uint32 pid = 6;
+  optional uint64 ctime = 7;
+}
+
+// Describe filesystems
+message Filesystem {
+  optional string device = 1;
+  optional string mount_point = 2;
+  optional string type = 3;
+  optional string label = 4;
+};
+
+message MRUFile {
+  optional string filename = 1;
+  optional uint64 timestamp = 2 [default = 0];
+}
+
+message RunKey {
+  optional string keyname = 1;
+  optional string filepath = 2;
+  optional uint64 lastwritten = 3 [default = 0];
+}
+
+//OS X specific aspects of a service
+message LaunchdJob {
+  optional string sessiontype = 1;
+  optional uint64 lastexitstatus = 2;
+  optional uint64 timeout = 3;
+  optional bool ondemand = 4;
+  repeated string machservice = 5;
+  repeated string perjobmachservice = 6;
+  repeated string socket = 7;
+
+}
+
+// Describe a running service:
+// Windows service,
+// linux daemon
+// OS X launchd jobs (launchagents/daemons)
+message Service {
+  optional string label = 1;
+  optional string program = 2;
+  optional string args = 3;
+  optional uint64 pid = 4;
+  optional LaunchdJob osx_launchd = 5;
+}
+
+// Describe an installed software package. Cross platform.
+message SoftwarePackage {
+  optional string name = 1;
+  optional string version = 2;
+  optional string architecture = 3;
+  optional string publisher = 4;
+  enum InstallState {
+    INSTALLED = 0;
+    PENDING = 1;
+    UNINSTALLED = 2;
+    UNKNOWN = 3;
+  };
+  optional InstallState install_state = 5 [default = UNKNOWN];
+  optional string description = 6;
+}

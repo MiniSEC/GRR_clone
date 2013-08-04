@@ -1,0 +1,2833 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.6" />
+<title>GRR User manual</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+tt {
+  font-family: monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+.monospaced {
+  font-family: monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+    background-color: white;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>GRR User manual</h1>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_high_level_overview">High-level overview</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>To function, an <a href="#agent"><em>agent</em></a> is deployed on systems that one might want to
+investigate. Once deployed, each system becomes a GRR <a href="#client"><em>client</em></a> and
+they can start receiving <a href="#message">messages</a> from the frontend servers. Each
+message tells the client to run a specific <a href="#client_action"><em>client action</em></a> and
+return the results. A client action is simply some well known code the agent
+knows how to execute (such as obtaining the list of files in a directory or
+reading a buffer from a file).</p></div>
+<div class="paragraph"><p>These actions are invoked server-side through what we call <a href="#flow"><em>flows</em></a>. A
+<a href="#flow"><em>flow</em></a> is a piece of server-side code that asks the GRR system to
+schedule remote calls to a client and has some additional logic to decide what
+to do based on the call results.</p></div>
+<div class="paragraph"><p>This <a href="#flow"><em>flow</em></a> is running on a client because a user initiated it. To do
+so, he probably used the web-based Graphical User Interface (GUI), which allows
+a GRR user to start flows for clients and review the results. Or he could also
+have used the text-based <a href="#_the_console"><em>console</em></a> to do the same.</p></div>
+<div class="paragraph"><p>Any flow that can be run on a single machine can also be run as a Hunt. A hunt
+allows running a flow on all, or any subset of machines talking to the GRR
+server.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started">Getting started</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Once we&#8217;ve got <a href="admin.html">the GRR server installed and running</a> we&#8217;ll want
+to start deploying some agents.</p></div>
+<div class="paragraph"><p>To do so we&#8217;ll need to:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Download the specific agent version we need to install on the system.
+</p>
+</li>
+<li>
+<p>
+Decide on a deployment method.
+</p>
+</li>
+<li>
+<p>
+Perform the deployment and verify the results.
+</p>
+</li>
+</ol></div>
+<div class="sect2">
+<h3 id="_downloading_agents">Downloading Agents</h3>
+<div class="paragraph"><p>If your install went successfully, the agents should have been uploaded to the
+server with working configurations, and should be available in the Admin UI.</p></div>
+<div class="paragraph"><p>Look on the left for "Manage Binaries", the files should be in the executables
+directory, under installers. The download button is the down arrown in the
+toolbar.</p></div>
+<div class="paragraph"><p>If your server configuration has changed your agents will need to be repacked
+with an updated config. For details see:
+<a href="admin.html#_repacking_the_client_with_a_new_configuration">the GRR server
+installed and running</a></p></div>
+</div>
+<div class="sect2">
+<h3 id="_installing_the_agent">Installing the Agent</h3>
+<div class="paragraph"><p>This differs significantly depending on the operating system.</p></div>
+<div class="sect3">
+<h4 id="_windows">Windows</h4>
+<div class="paragraph"><p>The Windows agents are special self extracting zipfiles. Just double click or
+otherwise execute the binary. If you are not an administrator it will prompt
+you for credentials.
+It should then install silently in the background, unless you enabled the
+ <a href="user_manual.html#_debugging_the_agent_install">verbose build</a></p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deployment_methods">Deployment methods</h3>
+<div class="paragraph"><p>There are as many deployment methods as code execution paths exist. We&#8217;ll
+discuss some of the most common ways and try to cover each platform.</p></div>
+<div class="sect3">
+<h4 id="_windows_deployment">Windows deployment</h4>
+<div class="paragraph"><p>The most straightforward way to deploy a GRR agent to a Windows machine is to
+use <a href="http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx">PsExec</a>.
+PsExec allows one to execute commands on a remote system if credentials for a
+valid user are known.</p></div>
+<div class="paragraph"><p>To do so, start by downloading psexec and placing in a directory of your choice,
+we&#8217;ll call it AGENT_DIRECTORY here. Store the version of the agent you want to
+download to the same directory.</p></div>
+<div class="paragraph"><p>Once you have both, you have to make sure you know the username and password of
+an Administrator user in the remote system. Once all these requirements are met,
+just start a cmd.exe shell and type:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>cd C:\AGENT_DIRECTORY\
+net use \\MACHINE\IPC$ /USER:USERNAME *
+psexec \\MACHINE -c -f -s agent-version.exe</tt></pre>
+</div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>The NET USE command will ask for a password interactively, so it&#8217;s not suited
+for using in scripts. You could Switch the <em>*</em> for the PASSWORD instead if you
+want to include it in a script.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>You&#8217;ll need to replace:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+C:\AGENT_DIRECTORY\ with the full path you chose.
+</p>
+</li>
+<li>
+<p>
+MACHINE with the name of the target system.
+</p>
+</li>
+<li>
+<p>
+USERNAME with the user with administrative privileges on the target system.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This will copy the agent-version.exe executable on the target system and execute
+it. The installation doesn&#8217;t require user input.</p></div>
+<div class="paragraph"><p>The expected output is something along these lines:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>C:\&gt; cd C:\AGENT_DIRECTORY\
+C:\&gt; net use \\127.0.0.1\IPC$ /USER:admin *
+Type the password for \\127.0.0.1\IPC$:
+The command completed successfully
+
+C:\AGENT_DIRECTORY&gt; psexec \\127.0.0.1 -c -f -s agent.exe
+PsExec v1.98 - Execute processes remotely
+Copyright (C) 2001-2010 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+The command completed successfully.
+
+agent.exe exited on 127.0.0.1 with error code 0.
+
+C:\AGENT_DIRECTORY&gt;</tt></pre>
+</div></div>
+<div class="paragraph"><p>For even less footprint on installation you could host the agent on a shared
+folder on the network and use this psexec command instead:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>cd C:\AGENT_DIRECTORY\
+net use \\MACHINE\IPC$ /USER:USERNAME *
+psexec \\MACHINE -s \\SHARE\FOLDER\agent-version.exe</tt></pre>
+</div></div>
+<div class="paragraph"><p>This requires the USERNAME on the remote MACHINE be able to log into SHARE and
+access the shared folder FOLDER. You can do this either by explicitly allowing
+the user USERNAME on that share or by using an Anonymous share.</p></div>
+<div class="paragraph"><p>The best way to verify whether the whole installation process has worked is to
+<a href="#_searching_for_a_client">search for the client in the GUI</a>.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_linux_macos_x_deployment">Linux / MacOS X deployment</h4>
+<div class="paragraph"><p>On linux, the process depends on your environment, if you have a mechanism such
+as puppet, then building as a Deb package and deploying that way makes the most
+sense.
+Alternatively you can deploy using ssh:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>scp agent_version.deb host:/tmp/
+ssh host sudo dpkg -i /tmp/agent_version.deb</tt></pre>
+</div></div>
+<div class="paragraph"><p>On MacOS X, the same process applies, use puppet or equivalent if you have, or
+use ssh.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploying_at_scale">Deploying at scale</h3>
+<div class="paragraph"><p>There shouldn&#8217;t be any special considerations for deploying GRR clients at
+scale. If the server can&#8217;t handle the load, the clients should happily back off
+and wait their turn. However, we recommend a staged rollout if possible.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_debugging_the_agent_install">Debugging the Agent Install</h3>
+<div class="paragraph"><p>If the installer is failing to run, it should output a log file which will help
+you debug. The location of the logfile is configurable, but by default should
+be:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Windows: %WinDir%\system32\logfiles\GRR_installer.txt
+</p>
+</li>
+<li>
+<p>
+Linux/Mac OSX: /tmp/grr_installer.txt
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>To make debugging easier, we also support repacking the client with verbosity
+enabled. This is particularly handy on Windows. To repack with this enabled, on
+the server do:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>db@host:~ sudo grr_config_updater --verbose --config_execute=VerboseClientBuilder
+repack_clients</tt></pre>
+</div></div>
+<div class="paragraph"><p>Then download the new binary. It should have the same configuration, but will
+output detailed progress to the console, making it easier to debug.</p></div>
+<div class="paragraph"><p>Note that the binary is also a zipfile, you can open it in any capable zip
+reader. Unfortunately this doesn&#8217;t include the built in Windows zip file handler
+but does include winzip or 7-zip. Opening the zip is useful for reading the
+config or checking that the right dependencies have been included.</p></div>
+<div class="sect4">
+<h5 id="_interactively_debugging_the_client">Interactively Debugging the Client</h5>
+<div class="paragraph"><p>On each platform, the agent binary should support the following options:
+--verbose::
+  This will set higher logging allowing you to see what is going on.
+--debug::
+  If set, and an unhandled error occurs in the client, the client will break
+  into a pdb debugging shell.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>C:\Windows\system32&gt;net stop "grr monitor"
+The GRR Monitor service is stopping.
+The GRR Monitor service was stopped successfully.
+
+C:\Windows\system32&gt;c:\windows\system32\grr\2.5.0.5\grr.exe --config reg://HKEY_
+LOCAL_MACHINE/Software\GRR --verbose</tt></pre>
+</div></div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_changes_to_ease_debugging">Configuration Changes to Ease Debugging</h5>
+<div class="paragraph"><p>If you are finding that it is slow to debug because the agent starts backed
+off to 10 minutes and you have to wait, you should change the configuration.
+In windows, set the registry key poll_max to 10, then restart the service. You
+can do this with regedit or via the Windows command line:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>C:\Windows\system32&gt;reg add HKLM\Software\GRR\Client /v poll_max /d 10
+The operation completed successfully.
+
+C:\Windows\system32&gt;net stop "grr monitor"
+The GRR Monitor service is stopping.
+The GRR Monitor service was stopped successfully.
+
+C:\Windows\system32&gt;net start "grr monitor"
+The GRR Monitor service is starting.
+The GRR Monitor service was started successfully.</tt></pre>
+</div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uninstalling_the_agent">Uninstalling the Agent</h3>
+<div class="paragraph"><p>On Windows the agent does not have an uninstaller. It is designed to have
+minimal impact on the system and leave limited traces of itself such that it
+can be hidden reasonably easily. Thus it was designed to install silently
+without an uninstall.</p></div>
+<div class="paragraph"><p>Uninstalling the agent is a matter of deleting the service and the install
+directory, then optionally removing the registry keys and install log if one
+was created.</p></div>
+<div class="paragraph"><p>On Linux and MacOSX the standard system packaging (deb, pkg) is used by default.
+Use the standard uninstall mechanisms for these.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_grr_gui">The GRR GUI</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_searching_for_a_client">Searching for a client</h3>
+<div class="paragraph"><p>In order to start interfacing with a client, we first need to search for it in
+the GUI. The GRR search bar is located at the top of the GUI and allows you to
+search clients based on their hostname, users available on the system or client
+ID.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-searchbar.png" alt="images/grr-gui-searchbar.png" width="850" />
+</div>
+<div class="title">Figure 1. GRR search bar</div>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content">
+<div class="paragraph"><p>One can also specify a specific attribute to search for by using the convention
+"attribute_name:search_value". So to search for usernames matching john we would
+use: user:john.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>We&#8217;ll use "domU" in our case, as we&#8217;ve installed the agent in a hostname
+matching this name. A list of available clients matching your criteria will
+show.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-searchbar-results.png" alt="images/grr-gui-searchbar-results.png" width="850" />
+</div>
+<div class="title">Figure 2. Search results</div>
+</div>
+<div class="paragraph"><p>As you can see, the main panel gets populated with table-based results. Let&#8217;s go
+through each of the columns shown:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>Online</em>: An icon indicating whether the host is online or not. Green means
+  online; yellow, offline for some time; red, offline for a long time.
+</p>
+</li>
+<li>
+<p>
+<em>subject</em>: The client IDentifier. This is how GRR refers internally to the
+  system.
+</p>
+</li>
+<li>
+<p>
+<em>Host</em>: The name of the host as the operating system sees it.
+</p>
+</li>
+<li>
+<p>
+<em>Version</em>: The operating system version.
+</p>
+</li>
+<li>
+<p>
+<em>MAC</em>: A list of MAC addresses of the system.
+</p>
+</li>
+<li>
+<p>
+<em>Usernames</em>: A list of user accounts the operating system knows about (usually
+  users local to the system or that have logged in).
+</p>
+</li>
+<li>
+<p>
+<em>Install</em>: The time when the agent was installed on the system.
+</p>
+</li>
+<li>
+<p>
+<em>Clock</em>: The last time the client communicated with a worker.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Once you&#8217;ve found the client you were looking for, click on it and both the left
+panel and main panel will change to reflect you&#8217;re now working with a client.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_the_client_view">The client view</h3>
+<div class="paragraph"><p>When interfacing with a client the left pane contains additional options. By
+default, the Host information view will be active. It shows most of the
+information that was available in the search results in an attribute-value. This
+is because all of the information relative to the client is stored as an
+attribute of it.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-client-mainview.png" alt="images/grr-gui-client-mainview.png" width="850" />
+</div>
+<div class="title">Figure 3. Client view</div>
+</div>
+<div class="paragraph"><p>GRR supports versioning of attributes. This means we store historical data of
+each of attribute. Effectively, each attribute value stores both the value and
+the time when this value was seen. When different values have been gathered over
+time for a specific attribute, a <em>+</em> sign will appear before it in the GUI.
+Click on it and it will display a table with all the known values over time.</p></div>
+<div class="paragraph"><p>Additionally, in the listing view, the Age column has a clickable icon that
+will show you the different versions of the file that have been collected.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-client-versionedmac.png" alt="images/grr-gui-client-versionedmac.png" width="850" />
+</div>
+<div class="title">Figure 4. Versioned MAC address</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_listing_the_virtual_filesystem">Listing the Virtual FileSystem</h3>
+<div class="paragraph"><p>One of the basic requirements any forensic analyst needs from its tools is to be
+able to browse the target system&#8217;s filesystems. GRR allows you to do so but you
+won&#8217;t find the remote filesystems prepopulated once you add a new client.</p></div>
+<div class="paragraph"><p>First, let&#8217;s click the <em>Browse Virtual Filesystem</em> option on the left panel to
+access this client&#8217;s VFS.</p></div>
+<div class="paragraph"><p>As you can see, the main pane contains now 3 different subpanels:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>Tree view</em>. Located on the left side, the tree view presents a classical tree
+  view of the client&#8217;s virtual filesystem.
+</p>
+</li>
+<li>
+<p>
+<em>Table view</em>. The table view shows the contents of whichever node is selected
+  on the tree view as a table, showing several (but not all) the attributes of
+  objects contained within the selected node.
+</p>
+</li>
+<li>
+<p>
+<em>Details view</em>. The bottom panel shows details about the node selected on the
+  table view. It&#8217;s a tab based panel that allows to check the node in depth. One
+  can see all its attributes, download its contents or see them in the browser
+  either on a text based or hex-based view.
+</p>
+</li>
+</ul></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-vfs-panels.png" alt="images/grr-gui-vfs-panels.png" width="850" />
+</div>
+<div class="title">Figure 5. GRR VFS Pane</div>
+</div>
+<div class="paragraph"><p>In order to check contents of the remote filesystem you first need to request a
+directory listing. And before that you need to know which drive or volume you
+want to list. You can find these under the <tt>fs</tt> (FileSystem) node of the tree
+view.</p></div>
+<div class="paragraph"><p>Inside you will find two directories:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<tt>os</tt> contains the volumes seen by the Operating System.
+</p>
+</li>
+<li>
+<p>
+<tt>tsk</tt> contains volumes seen by sleuthkit when analyzing the partition table
+on the remote system.
+</p>
+</li>
+</ol></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-vfs-fs.png" alt="images/grr-gui-vfs-fs.png" width="850" />
+</div>
+<div class="title">Figure 6. GRR VFS fs node</div>
+</div>
+<div class="paragraph"><p>If you try to expand (just click) any of these volumes on a fresh system you
+will see they are empty. To list its contents you just need to click on the
+refresh button of the table view. This will ask the agent to obtain the
+directory and send it back to the server.</p></div>
+<div class="paragraph"><p>Wait just a few seconds and the table view will refresh itself and show the
+contents.  Take into account the refresh button only requests a listing of the
+current directory in a non-recursive manner.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-vfs-table-refresh.png" alt="images/grr-gui-vfs-table-refresh.png" width="850" />
+</div>
+<div class="title">Figure 7. GRR VFS Directory listing done</div>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>What just happened is that the GUI scheduled a Flow to list the directory.  The
+agent received it and sent back messages with a list of entries. The frontend
+servers picked up the responses and populated the datastore with an object for
+each of them. These objects are AFF4 objects and holdsthe filesystem specific
+attributes that we store (size on disk, dates, permissions) as attributes of
+this object. These AFF4 objects form a hierarchical (tree-like) structure. We
+map the filesystem hierarchy to the AFF4 hierarchy and the GUI simply shows you
+this list of objects in a custom view, which is the table you&#8217;re seeing for the
+VFS.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>The table view of the VFS shows a few columns by default:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>icon</em>. Shows whether this entry is a file or a directory.
+</p>
+</li>
+<li>
+<p>
+<em>Name</em>. Contains the name of the file/directory entry.
+</p>
+</li>
+<li>
+<p>
+<em>type</em>. The GRR object type assigned to this entry.
+</p>
+</li>
+<li>
+<p>
+<em>size</em>. The object contents size in GRR. 0 in general because you&#8217;ve
+  downloaded no content so far.
+</p>
+</li>
+<li>
+<p>
+<em>stat.st_size</em>. The file/directory contents size on the remote filesystem.
+</p>
+</li>
+<li>
+<p>
+<em>stat.st_mtime</em>. The file/directory last written time in UTC on the remote
+  filesystem.
+</p>
+</li>
+<li>
+<p>
+<em>stat.st_ctime</em>. The file/directory creation time in UTC on the remote
+  filesystem..
+</p>
+</li>
+<li>
+<p>
+<em>age</em>. The time at which all of this information was stored.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Now try clicking on any entry in the table view and the details view will
+populate with data from this file.</p></div>
+<div class="paragraph"><p>The details view has four tabs you can use. The default one is <tt>Stats</tt> and it
+shows all the attributes for the selected node. It should look familiar to you
+as it&#8217;s pretty much as the <tt>Host Information</tt> page you see where you can find
+information about the client object.</p></div>
+<div class="paragraph"><p>The rest are discussed in the next section.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_downloading_files">Downloading Files</h3>
+<div class="paragraph"><p>The easiest way to download a file is through the GUI. To do so, you first have
+to list the directory it&#8217;s in and browse there with the GUI.</p></div>
+<div class="paragraph"><p>Select the file on the table panel and click the <em>Download</em> tab on the details
+view. By clicking on <em>Get new version</em> you will issue a Flow to download the
+given file. The client will transfer the given file by creating messages with
+the file contents and it will be stored in the GRR datastore.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-vfs-download.png" alt="images/grr-gui-vfs-download.png" />
+</div>
+<div class="title">Figure 8. Download tab</div>
+</div>
+<div class="paragraph"><p>Once the file is downloaded, a new button will appear in this view above the
+<em>Get new version</em> button called <em>Download</em>. As you guessed, this allows you to
+download the file from the GRR datastore to your computer.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-vfs-downloaded.png" alt="images/grr-gui-vfs-downloaded.png" />
+</div>
+<div class="title">Figure 9. Downloaded file</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_file_versions">File Versions</h3>
+<div class="paragraph"><p>One interesting property of GRR that may not be immediately obvious, is that
+every object is versioned with it&#8217;s age, and for the most part, we keep old
+versions instead of overwriting them. This means that if you Schedule listing of
+a directory once a day, you will end up with a historical daily record of that
+directory. You can click on the icon in the Age column to show a list of all
+the versions of a file we have collected.</p></div>
+<div class="paragraph"><p>In some cases, different versions of the object may have different types
+depending on how it was retrieved. A common case of this is for files. If you
+list a directory, the file entry will be a Stat, but if you download the same
+file, you will get a HashImage.</p></div>
+<div class="paragraph"><p>This can lead to confusion. If you download a file, then list the directory,
+the downloadable HashImage may seem to disappeared due to the default view only
+showing latest version of the file. You will need to click the Age icon to
+access the previous version.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/caution.png" alt="Caution" />
+</td>
+<td class="content">
+<div class="paragraph"><p>For safety reasons, GRR appends ".noexec" to the name of every file you request
+to download to your computer.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_virtual_filesystem">The Virtual Filesystem</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><em>TODO</em></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flows">Flows</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>When designing GRR, one of the main goals was achieving great scalability.  One
+of the main resource hogs with the client-server model is that while a client is
+active all resources that might have been needed on the server side to
+communicate with it and do processing are held (think temporary buffers,
+sockets, file descriptors&#8230;). Even when the client itself is doing operations
+that take time such as heavy computations or waiting on I/O, resources are held
+on the server.</p></div>
+<div class="paragraph"><p>When trying to deal with thousands of clients at the same time, this would
+translates into the server hoarding many unneeded resources.</p></div>
+<div class="paragraph"><p>To solve the resource hogging problem, Flows were created. Flows are the
+server-side code entities that call client actions. These calls are done
+asynchronously. That is, they are requested and their results become available
+later on. Flows are like a state machine, where transition between states
+happens when the results of client actions return to the server. So here&#8217;s what
+happens when the GRR server launches a typical Flow.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+The GRR server executes the initial Flow state.
+</p>
+</li>
+<li>
+<p>
+This state asks for one or more client actions to be performed on the client.
+</p>
+</li>
+<li>
+<p>
+The server clears all the resources this Flow has requested and waits for
+responses from the client to come back.
+</p>
+</li>
+<li>
+<p>
+When responses are received, the server fetches all the needed resources
+again and runs the Flow state where it expects these responses. If more client
+actions are requested by this state it goes back to step 2. Otherwise&#8230;
+</p>
+</li>
+<li>
+<p>
+The results of this Flow are stored and the flow state is updated.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Flows have a second very interesting property. For flows that make use of some
+of the most primitive client actions, because all of the logic is encapsulated
+on the server side and the client doesn&#8217;t have any state at all, they naturally
+survive reboots while processing is taking place.</p></div>
+<div class="paragraph"><p>Now, whether you&#8217;ve been following the <a href="#_getting_started"><em>Getting started</em></a>
+chapter or not, as long as you have a client communicating with the server you
+can already check some flows in the GUI. While having selected a client in the
+GUI, click on the <em>Manage launched flows</em> link on the left panel.  This will
+bring you to a view that shows all the Flows that have been requested on this
+client.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-flows-main.png" alt="images/grr-gui-flows-main.png" width="850" />
+</div>
+<div class="title">Figure 10. Launched flows view</div>
+</div>
+<div class="paragraph"><p>The flows view resembles very much the VFS view. Indeed, the GUI reuses
+table-detail panels on many of the views. The table view shows the current state
+of the flow, what&#8217;s the flow identifier (<em>Path</em>), the name of the Flow launched,
+the date when it was launched, when it was last active and who created it.</p></div>
+<div class="paragraph"><p>As you can see, 4 Flows have been launched in the shown example:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<em>CAEnroler</em>. This is the first flow ever to launch for any client. It is the
+enroling Flow which gets the client set up server side.
+</p>
+</li>
+<li>
+<p>
+<em>Interrogate</em>. After enroling, a client sends some information about the
+machine it&#8217;s running in such as the hostname, MAC address or users available
+on the system. This is the flow that fetches this information and if you
+remember the <em>Host Information</em> option, most information is contained there.
+</p>
+</li>
+<li>
+<p>
+<em>ListDirectory</em>. A Flow that lists the contents of a directory. This is what
+happened when the refresh button was pressed on the GUI.
+</p>
+</li>
+<li>
+<p>
+<em>GetFile</em>. A flow to download a specific file on a client. This is the flow
+that got launched when we asked to download a file through the GUI.
+</p>
+</li>
+</ol></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">
+<div class="paragraph"><p>The list of flows doesn&#8217;t auto-refresh at the moment. To see it updated you will
+have to manually refresh it by clicking on the <em>Manage launched flows</em> option
+again.</p></div>
+<div class="paragraph"><p>Clicking on an individual flow to see its details, however, DOES get fresh
+information from the datastore.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Let&#8217;s see the <em>ListDirectory</em> flow in detail. You can click on any flow to get
+detailed information.</p></div>
+<div class="imageblock" style="text-align:center;">
+<div class="content">
+<img src="images/grr-gui-flows-listdirectory.png" alt="images/grr-gui-flows-listdirectory.png" />
+</div>
+<div class="title">Figure 11. ListDirectory flow details</div>
+</div>
+<div class="paragraph"><p>There&#8217;s a lot of information here. Again, all these values are attributes. The
+most interesting bits are the flow <em>state</em>, which tells us whether it finished
+correctly (oddly named <strong>TERMINATED</strong>) or not (<strong>ERROR</strong>), or if it&#8217;s still running
+(<strong>RUNNING</strong>). The <em>args</em>, which are the specific arguments that were passed to
+it. Finally, the <em>LOG</em> attribute holds a list of messages the Flow generated.</p></div>
+<div class="sect2">
+<h3 id="_launching_flows_manually">Launching flows manually</h3>
+<div class="paragraph"><p>We&#8217;ve seen how Flows were created through the UI. Now, we are gonna issue our
+own <em>ListDirectory</em> flow, giving it parameters and then you can check the
+<a href="#_available_flows">available flows</a> list to decide what else you might want to
+run on your client.</p></div>
+<div class="paragraph"><p>To start a new Flow simply click on the <em>Start new flows</em> option on the left
+panel. The main panell will populate with the holy trinity of panels. The tree
+view shows all the Flows organized by category.</p></div>
+<div class="paragraph"><p>Expand the <em>FileSystem</em> category and select the <em>ListDirectory</em> flow. The flow
+view will populate with a form with all the user-configurable parameters for
+every flow. What&#8217;s more, because each parameter has a well-defined type, GRR
+shows you nice widgets to select a value for each of them.</p></div>
+<div class="paragraph"><p>The ListDirectory flow accepts three parameters (the client ID is implicit in
+the GUI):</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+<em>path</em>. This is the textual path that you want listed.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>. Which VFS handler you want to use for the path. Available options
+are:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>OS</strong>. Uses the OS "open" facility. These are the most straightforward for a
+    first user. Examples of <em>os</em> paths are <tt>C:/Windows</tt> on Windows or
+    <tt>/etc/init.d/</tt> on Linux/OSX.
+</p>
+</li>
+<li>
+<p>
+<strong>TSK</strong>. Use Sleuthkit. Because Sleuthkit is invoked a path to the device is
+    needed along the actual directory path. Examples of <em>tsk</em> paths are
+    <tt>\\?\Volume{19b4a721-6e90-12d3-fa01-806e6f6e6963}\Windows</tt> for Windows or
+    <tt>/dev/sda1/init.d/</tt> on Linux. The specific path will vary from client to
+    client.
+</p>
+</li>
+<li>
+<p>
+<strong>REGISTRY</strong>. Windows-related. You can open the live Windows registry as if it
+    was a virtual filesystem.a So you can specify a <em>path</em> such as
+    <tt>HKEY_LOCAL_MACHINE/Select/Current</tt>.
+</p>
+</li>
+<li>
+<p>
+<strong>MEMORY</strong>. Access the client memory.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>Priority</em>. Three thresholds are given to flows. The higher priority flows
+take precedence executing over lower priority ones. By default all flows are
+scheduled as Medium priority. In general, you shouldn&#8217;t change this parameter.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Once you&#8217;ve filled in each required field, click on <em>Launch</em> and if all
+parameters validated, the Flow will run. Now you can go to the <em>Manage launched
+flows</em> view to find it running or track it.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">
+<div class="paragraph"><p>Not all flows might be available on every platform. When trying to run a flow
+that&#8217;s not available in the given platform an error will show up.</p></div>
+</td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_available_flows">Available flows</h3>
+<div class="sect3">
+<h4 id="_administrative_executecommand">Administrative/ExecuteCommand</h4>
+<div class="paragraph"><p>Execute a predefined command on the client.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_administrative_getclientstats">Administrative/GetClientStats</h4>
+<div class="paragraph"><p>This flow retrieves information about the GRR client process.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_administrative_kill">Administrative/Kill</h4>
+<div class="paragraph"><p>Terminate a running client (does not disable, just kill).</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_administrative_onlinenotification">Administrative/OnlineNotification</h4>
+<div class="paragraph"><p>Notifies by email when a client comes online in GRR.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>email</em>: Email address to send to, can be comma separated. If not set, mail
+  will be sent to the logged in user.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_administrative_uninstall">Administrative/Uninstall</h4>
+<div class="paragraph"><p>Removes the persistence mechanism which the client uses at boot. For Windows and
+OSX, this will disable the service, and then stop the service. For Linux this
+flow will fail as we haven&#8217;t implemented it yet :)</p></div>
+</div>
+<div class="sect3">
+<h4 id="_administrative_update">Administrative/Update</h4>
+<div class="paragraph"><p>Updates the GRR client to a new version.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>blob_path</em>: An aff4 path to a GRRSignedBlob of a new client version.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_automation_linsystemactivityinvestigation">Automation/LinSystemActivityInvestigation</h4>
+<div class="paragraph"><p>Do the initial work for a Linux system investigation.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>list_processes</em>: Call the ListProcesses flow.
+</p>
+</li>
+<li>
+<p>
+<em>list_network_connections</em>: Call the Netstat flow.
+</p>
+</li>
+<li>
+<p>
+<em>artifact_list</em>: List of artifacts to collect. If None use self.artifact_list.
+</p>
+</li>
+<li>
+<p>
+<em>use_tsk</em>: Use raw filesystem access where possible.
+</p>
+</li>
+<li>
+<p>
+<em>timeline_collected_data</em>: Once complete create a timeline for the host.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_automation_winsystemactivityinvestigation">Automation/WinSystemActivityInvestigation</h4>
+<div class="paragraph"><p>Do the initial work for a system investigation.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>list_processes</em>: Call the ListProcesses flow.
+</p>
+</li>
+<li>
+<p>
+<em>list_network_connections</em>: Call the Netstat flow.
+</p>
+</li>
+<li>
+<p>
+<em>artifact_list</em>: List of artifacts to collect. If None use self.artifact_list.
+</p>
+</li>
+<li>
+<p>
+<em>collect_av_data</em>: Call the Antivirus flows to collect quarantine/logs.
+  collect_bit9_database: Collect the bit9 database.
+</p>
+</li>
+<li>
+<p>
+<em>collect_prefetch</em>: List the prefetch directory.
+</p>
+</li>
+<li>
+<p>
+<em>use_tsk</em>: Use raw filesystem access where possible.
+</p>
+</li>
+<li>
+<p>
+<em>timeline_collected_data</em>: Once complete create a timeline for the host.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_automation_winuseractivityinvestigation">Automation/WinUserActivityInvestigation</h4>
+<div class="paragraph"><p>Do the initial work for a user investigation.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>username</em>: The user to target the actions to.
+</p>
+</li>
+<li>
+<p>
+<em>get_browser_history</em>: Call each of the browser history flows.
+</p>
+</li>
+<li>
+<p>
+<em>recursive_list_homedir</em>: Recursively list the users homedir to this depth.
+</p>
+</li>
+<li>
+<p>
+<em>recursive_list_user_registry</em>: Recursively list the users registry hive.
+</p>
+</li>
+<li>
+<p>
+<em>artifact_list</em>: A list of Artifact names. If None use self.artifact_list.
+</p>
+</li>
+<li>
+<p>
+<em>timeline_collected_data</em>: Once complete create a timeline for the host.
+</p>
+</li>
+<li>
+<p>
+<em>use_tsk</em>: Use raw filesystem access where possible.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_browser_chromehistory">Browser/ChromeHistory</h4>
+<div class="paragraph"><p>Retrieve and analyze the chrome history for a machine. Default directories as
+per: <a href="http://www.chromium.org/user-experience/user-data-directory">http://www.chromium.org/user-experience/user-data-directory</a></p></div>
+<div class="paragraph"><p>Windows XP
+Google Chrome:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>c:\Documents and Settings\&lt;username&gt;\Local Settings\Application Data Google\
+Chrome\User Data\Default</tt></pre>
+</div></div>
+<div class="paragraph"><p>Windows 7 or Vista
+  c:\Users\&lt;username&gt;\AppData\Local\Google\Chrome\User Data\Default</p></div>
+<div class="paragraph"><p>Mac OS X</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/Users/&lt;user&gt;/Library/Application Support/Google/Chrome/Default</tt></pre>
+</div></div>
+<div class="paragraph"><p>Linux</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/home/&lt;user&gt;/.config/google-chrome/Default</tt></pre>
+</div></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>username</em>: String, the user to get Chrome history for. If history_path is not
+  set this will be used to guess the path to the history files. Can be in form
+  DOMAIN\user.
+</p>
+</li>
+<li>
+<p>
+<em>history_path</em>: A specific file to parse.
+</p>
+</li>
+<li>
+<p>
+<em>get_archive</em>: Should we get Archived History as well (3 months old).
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Type of path to use.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: A path relative to the client to put the output.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_browser_chromeplugins">Browser/ChromePlugins</h4>
+<div class="paragraph"><p>Extract information about the installed Chrome extensions. Default directories
+as per: <a href="http://www.chromium.org/user-experience/user-data-directory">http://www.chromium.org/user-experience/user-data-directory</a></p></div>
+<div class="paragraph"><p>Windows XP</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>c:\Documents and Settings\&lt;username&gt;\Local Settings Application Data\
+Google\Chrome\User Data\Default\Extensions</tt></pre>
+</div></div>
+<div class="paragraph"><p>Windows 7 or Vista</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>c:\Users\&lt;username&gt;\AppData\Local\Google\Chrome\User Data\Default\Extensions</tt></pre>
+</div></div>
+<div class="paragraph"><p>Mac OS X</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/Users/&lt;user&gt;/Library/Application Support/Google/Chrome/Default/Extensions</tt></pre>
+</div></div>
+<div class="paragraph"><p>Linux</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/home/&lt;user&gt;/.config/google-chrome/Default/Extensions</tt></pre>
+</div></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>download_files</em>: If set to 1, all files belonging to the extension are
+  downloaded for analysis.
+</p>
+</li>
+<li>
+<p>
+<em>path</em>: A path to a Chrome Extensions directory. If path is None, the
+  directory is guessed.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type (Enum from Path protobuf).
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: A path relative to the client to put the output.
+</p>
+</li>
+<li>
+<p>
+<em>username</em>: String, the user to get Chrome extension info for. If path is not
+  set this will be used to guess the path to the extensions. For Windows domain
+  can be specified using DOMAIN\user nomenclature.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_browser_firefoxhistory">Browser/FirefoxHistory</h4>
+<div class="paragraph"><p>Retrieve and analyze the Firefox history for a machine. Default directories as
+per: <a href="http://www.forensicswiki.org/wiki/Mozilla_Firefox_3_History_File_Format">http://www.forensicswiki.org/wiki/Mozilla_Firefox_3_History_File_Format</a></p></div>
+<div class="paragraph"><p>Windows XP</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>C:\Documents and Settings\&lt;username&gt;\Application Data\Mozilla Firefox\
+Profiles\&lt;profile folder&gt;\places.sqlite</tt></pre>
+</div></div>
+<div class="paragraph"><p>Windows Vista</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>C:\Users\&lt;user&gt;\AppData\Roaming\Mozilla\Firefox\Profiles\&lt;profile
+folder&gt;\places.sqlite</tt></pre>
+</div></div>
+<div class="paragraph"><p>GNU/Linux</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/home/&lt;user&gt;/.mozilla/firefox/&lt;profile folder&gt;/places.sqlite</tt></pre>
+</div></div>
+<div class="paragraph"><p>Mac OS X</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>/Users/&lt;user&gt;/Library/Application Support/Firefox/Profiles/&lt;profile
+folder&gt;/places.sqlite</tt></pre>
+</div></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>username</em>: String, the user to get the history for. If history_path is not
+  set this will be used to guess the path to the history files. Can be in form
+  DOMAIN\user.
+</p>
+</li>
+<li>
+<p>
+<em>history_path</em>: A specific file to parse.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Type of path to use.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: A path relative to the client to put the output.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_collectors_javacachecollector">Collectors/JavaCacheCollector</h4>
+<div class="paragraph"><p>Collect all files in a user specific Java Cache directory.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>username</em>: A string containing the username.
+</p>
+</li>
+<li>
+<p>
+<em>domain</em>: Optional string containing the domain of the username.
+</p>
+</li>
+<li>
+<p>
+<em>cachedir</em>: Path to the Java cache. If provided, this overrides the guessing
+  of the cache directory using username/domain.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: If set, a URN to an AFF4Collection to add each result to.  This will
+  create the collection if it does not exist.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_collectors_sophoscollector">Collectors/SophosCollector</h4>
+<div class="paragraph"><p>Collect all files related to Sophos.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: If set, a URN to an AFF4Collection to add each result to.  This will
+  create the collection if it does not exist.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_downloaddirectory">Filesystem/DownloadDirectory</h4>
+<div class="paragraph"><p>Flow for recursively downloading all files in a directory.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: The directory path to download.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: The type of path.
+</p>
+</li>
+<li>
+<p>
+<em>depth</em>: Maximum recursion depth.
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: If specified overrides path to the location of the directory.
+</p>
+</li>
+<li>
+<p>
+<em>ignore_errors</em>: If True, we do not raise an error in the case that a
+  directory or file cannot be not found.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_fastgetfile">Filesystem/FastGetFile</h4>
+<div class="paragraph"><p>An experimental GetFile which uses deduplication to save bandwidth.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_fetchallfiles">Filesystem/FetchAllFiles</h4>
+<div class="paragraph"><p>Fetch all files satisfying a findspec, unless already fetched.
+This flow finds files, computes their hashes, and fetches <em>new</em> files.</p></div>
+<div class="paragraph"><p>The result from this flow is a population of aff4 objects under
+aff4:/fp/(generic|pecoff)/&lt;hashname&gt;/&lt;hashvalue&gt;.  There may also be a symlink
+from the original file to the retrieved content.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>pattern</em>: filename_regex to search for. The default is good for windows.
+</p>
+</li>
+<li>
+<p>
+<em>pecoff</em>: This causes the computation of Authenticode hashes, and their
+        use for deduplicating file fetches.
+</p>
+</li>
+<li>
+<p>
+<em>findspec</em>: A jobs_pb2.Find, if specified, pattern and the pathspec
+        are ignored.
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: If provided we start searching for the files recursively
+        from this path.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_findfiles">Filesystem/FindFiles</h4>
+<div class="paragraph"><p>This flow searches for files on the client.</p></div>
+<div class="paragraph"><p>The result from this flow is an AFF4Collection which will be created on the
+output path, containing all aff4 objects on the client which match the
+criteria. Note that these files will not be downloaded by this flow, only the
+metadata of the file in fetched.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/caution.png" alt="Caution" />
+</td>
+<td class="content">
+<div class="paragraph"><p>This flow is inefficient for collecting a large number of files.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: Search recursively from this place.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>filename_regex</em>: A regular expression to match the filename (Note only the
+  base component of the filename is matched).
+</p>
+</li>
+<li>
+<p>
+<em>data_regex</em>: The file data should match this regex.
+</p>
+</li>
+<li>
+<p>
+<em>iterate_on_number</em>: The total number of files to search before iterating on
+  the server.
+</p>
+</li>
+<li>
+<p>
+<em>max_results</em>: Maximum number of results to get.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: The path to the output container for this find. Will be created
+</p>
+</li>
+<li>
+<p>
+<em>findspec</em>: A jobs_pb2.Find, if specified, other arguments are ignored.
+</p>
+</li>
+<li>
+<p>
+<em>cross_devs</em>: If True, the find action will descend into mounted devices.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_fingerprintfile">Filesystem/FingerprintFile</h4>
+<div class="paragraph"><p>Retrieve all fingerprints of a file.</p></div>
+<div class="paragraph"><p>Allows declaration of a path or pathspec to compute the fingerprint on.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: The file path to fingerprint.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>device</em>: Optional raw device that should be accessed.
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: Use a pathspec instead of a path.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_getfile">Filesystem/GetFile</h4>
+<div class="paragraph"><p>An efficient file transfer mechanism.</p></div>
+<div class="paragraph"><p>This flow uses chunking and hashes to de-duplicate data and send it efficiently.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: The directory path to list.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: This flow also accepts all the information in one pathspec.  which
+  is preferred over the path and pathtype definition
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_getmbr">Filesystem/GetMBR</h4>
+<div class="paragraph"><p>A flow to retrieve the MBR.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_grep">Filesystem/Grep</h4>
+<div class="paragraph"><p>This flow greps a file on the client for a pattern or a regex.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: A path to the file.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>grep_regex</em>: The file data should match this regex.
+</p>
+</li>
+<li>
+<p>
+<em>grep_literal</em>: The file data should contain this pattern. Only one parameter
+  of grep_regex and grep_literal should be set.
+</p>
+</li>
+<li>
+<p>
+<em>offset</em>: An offset in the file to start grepping from.
+</p>
+</li>
+<li>
+<p>
+<em>length</em>: The maximum number of bytes this flow will look at.
+</p>
+</li>
+<li>
+<p>
+<em>mode</em>: Should this grep return all hits or just the first.
+</p>
+</li>
+<li>
+<p>
+<em>bytes_before</em>: The number of data bytes to return before each hit.
+</p>
+</li>
+<li>
+<p>
+<em>bytes_after</em>: The number of data bytes to return after each hit.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: The path to the output container for this find. Will be created
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_listdirectory">Filesystem/ListDirectory</h4>
+<div class="paragraph"><p>List files in a directory.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: The directory path to list.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type (Enum from Path protobuf).
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: This flow also accepts all the information in one pathspec.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_recursivelistdirectory">Filesystem/RecursiveListDirectory</h4>
+<div class="paragraph"><p>Recursively list directory on the client.  This flow builds a timeline for the
+filesystem on the client.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: Search recursively from this place.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: This flow also accepts all the information in one pathspec.
+</p>
+</li>
+<li>
+<p>
+<em>max_depth</em>: Maximum depth to recurse
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_filesystem_slowgetfile">Filesystem/SlowGetFile</h4>
+<div class="paragraph"><p>Simple file retrival.</p></div>
+<div class="paragraph"><p>This flow does not use the efficient hash transfer mechanism used in GetFile
+so its only really suitable for transferring very small files.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: The directory path to list.
+</p>
+</li>
+<li>
+<p>
+<em>pathtype</em>: Identifies requested path type. Enum from Path protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>aff4_chunk_size</em>: Specifies how much data is sent back from the client in
+  each chunk.
+</p>
+</li>
+<li>
+<p>
+<em>pathspec</em>: Use a pathspec instead of a path.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_memory_analyzeclientmemory">Memory/AnalyzeClientMemory</h4>
+<div class="paragraph"><p>Runs client side analysis using volatility.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>plugins</em>: A list of volatility plugins to run on the client.
+</p>
+</li>
+<li>
+<p>
+<em>driver_installer</em>: An optional driver installer protobuf.
+</p>
+</li>
+<li>
+<p>
+<em>profile</em>: A volatility profile. None guesses.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_memory_loadmemorydriver">Memory/LoadMemoryDriver</h4>
+<div class="paragraph"><p>Load a memory driver on the client.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>driver_installer</em>: An optional InstallDriverRequest proto to control driver
+  installation. If not set, the default installation proto will be used.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_memory_unloadmemorydriver">Memory/UnloadMemoryDriver</h4>
+<div class="paragraph"><p>Unloads a memory driver on the client.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>driver_installer</em>: An optional InstallDriverRequest proto to control driver
+  installation. If not set, the default installation proto will be used.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_metadata_interrogate">Metadata/Interrogate</h4>
+<div class="paragraph"><p>Interrogate various things about the host.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_misc_takescreenshot">Misc/TakeScreenshot</h4>
+<div class="paragraph"><p>Take a screenshot from a running system.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_network_netstat">Network/Netstat</h4>
+<div class="paragraph"><p>List running processes on a system.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_processes_listprocesses">Processes/ListProcesses</h4>
+<div class="paragraph"><p>List running processes on a system.
+Constructor for the Flow.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_registry_collectrunkeys">Registry/CollectRunKeys</h4>
+<div class="paragraph"><p>Collect Run and RunOnce keys on the system for all users and System.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_registry_findmru">Registry/FindMRU</h4>
+<div class="paragraph"><p>Collect a list of the Most Recently Used files for all users.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_services_enumeraterunningservices">Services/EnumerateRunningServices</h4>
+<div class="paragraph"><p>Collect running services.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>context</em>: A FlowContext object that will save the state for this flow.
+</p>
+</li>
+<li>
+<p>
+<em>notify_to_user</em>: Should this flow notify completion to the user that started
+  it?
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_timeline_mactimes">Timeline/MACTimes</h4>
+<div class="paragraph"><p>Calculate the MAC times from objects in the VFS.
+This flow builds a timeline for the filesystem on the client.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>Currently only VFSDirectory objects are supported.</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>path</em>: An AFF4 path (relative to the client area of the VFS).
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: The path to the output container for this find. Will be created
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_volatility_mutexes">Volatility/Mutexes</h4>
+<div class="paragraph"><p>This flow uses a volatility plugin to find mutexes. It relies on a memory
+driver being loaded on the client or it will fail.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>device</em>: Name of the device the memory driver created.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: The path to the output container for this find. Will be created
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_volatility_volatilityplugins">Volatility/VolatilityPlugins</h4>
+<div class="paragraph"><p>This flow runs a volatility plugin. It relies on a memory driver being loaded on
+the client or it will fail.</p></div>
+<div class="paragraph"><p>Arguments</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>plugins</em>: A list of plugins to run.
+</p>
+</li>
+<li>
+<p>
+<em>device</em>: Name of the device the memory driver created.
+</p>
+</li>
+<li>
+<p>
+<em>output</em>: The path to the output container for this find. Will be created
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hunting">Hunting</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Hunting is one of the key features of GRR. Anything you can do on a single
+client, should be able to be done on thousands of clients just as easily.</p></div>
+<div class="paragraph"><p>A hunt specifies a Flow, the Flow parameters, and a set of rules for which
+machines to run the Flow on.</p></div>
+<div class="sect2">
+<h3 id="_creating_a_hunt">Creating a Hunt</h3>
+<div class="paragraph"><p>You can create a new Hunt in the Hunt Manager section of the UI. To create a
+Hunt:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Click the + button
+</p>
+</li>
+<li>
+<p>
+Fill out the details of the flow you want to run
+</p>
+</li>
+<li>
+<p>
+Set Hunt parameters
+</p>
+<div class="olist loweralpha"><ol class="loweralpha">
+<li>
+<p>
+Client Limit - The maximum number of clients to run on (note this number
+   is considered a soft limit for technical reasons, we may slightly overshoot)
+</p>
+</li>
+<li>
+<p>
+Expiry Time - Stop queuing flows for new clients that appear after this
+   amount of time.
+</p>
+</li>
+</ol></div>
+</li>
+<li>
+<p>
+Select rules.
+</p>
+<div class="olist loweralpha"><ol class="loweralpha">
+<li>
+<p>
+By default you&#8217;ll want to choose a specific platform, e.g. Windows
+</p>
+</li>
+<li>
+<p>
+You can however make arbitrary rules based on attributes of the client. E.g.
+   a regex match to ensure to check the that the Version attribute at / matches
+   2.5.2.*
+</p>
+</li>
+</ol></div>
+</li>
+<li>
+<p>
+Click Run
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Unless approvals are required, the hunt should begin running immediately.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_why_is_my_hunt_doing_nothing">Why Is My Hunt Doing Nothing?</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+There are caches involved in the frontend server, you may need to wait a
+couple of minutes before the first client picks up the flow.
+</p>
+</li>
+<li>
+<p>
+Hunting is currently optimised for very large numbers of clients, so by
+default the client Foreman poll time is set to only check if hunts are scheduled
+every 50 minutes. If you only have one client you may need to wait up to 50
+minutes for it to start. (Note: this is planned to change in the future).
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>TODO</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exporting_data_from_grr">Exporting Data From GRR</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Extracting bulk data from the GRR datastore using the UI is slow and cumbersome.
+It is possible to use the console to extract any data you wish, but we also
+provide a tool called file_exporter.</p></div>
+<div class="sect3">
+<h4 id="_exporting_a_single_file">Exporting a Single File</h4>
+<div class="listingblock">
+<div class="content">
+<pre><tt>db@grrhost: ~$ grr_file_exporter --file=aff4:/C.123456890ABCDEF/fs/os/boot.ini --output=/tmp
+Using configuration &lt;ConfigFileParser filename="/etc/grr/grr-server.conf"&gt;
+Downloading: aff4:/C.123456890abcdef/fs/os/boot.ini to: /tmp/C.123456890abcdef/fs/os/boot.ini
+
+db@grrhost: ~$</tt></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_exporting_a_directory">Exporting a Directory</h4>
+<div class="paragraph"><p>Directories can be exported recursively</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>db@grrhost: ~$ grr_file_exporter --directory=aff4:/C.123456890ABCDEF/fs/os/ --output=/tmp --overwrite --depth=4
+Downloading: aff4:/C.123456890abcdef/fs/os/boot.ini to: /tmp/C.123456890abcdef/fs/os/boot.ini
+Downloading: aff4:/C.123456890abcdef/fs/os/tmp1 to: /tmp/C.123456890abcdef/fs/os/tmp1
+
+db@grrhost: ~$</tt></pre>
+</div></div>
+</div>
+<div class="sect3">
+<h4 id="_exporting_a_collection">Exporting a Collection</h4>
+<div class="paragraph"><p>An RDFValueCollection is a collection of objects, often URNs or StatEntry
+objects which reference files that have been downloaded. These are often created
+as the output of hunts and it is common to want to download all these files to
+disk so you can work with them easily.</p></div>
+<div class="paragraph"><p>You need to pass in a URN, and by default we will download files from the
+collection to the directory you specify under the full aff4 path.</p></div>
+<div class="paragraph"><p>For collections we support downloading multithreaded, which speeds things up
+significantly.
+In addition, for collections, by default dump a yaml file of the client data to
+the root of the client directory, e.g. C.123456890abcdef/client_info.yaml.
+This is useful for identifying which machine the files came from when working on
+the filesystem.</p></div>
+<div class="paragraph"><p><em>TODO</em> Add example</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>db@grrhost: ~$ grr_file_exporter --collection=aff4:/hunts/W:123456/Results --output=/tmp
+
+db@grrhost: ~$</tt></pre>
+</div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_console">The console</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You can access the console via grr_console. This gives you an interactive
+ipython shell with all the right imports to do pretty much whatever you want.</p></div>
+<div class="paragraph"><p><em>TODO</em> Add examples.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary">Glossary</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<a id="aff4"></a> AFF4
+</dt>
+<dd>
+<p>
+AFF4 is the data model used for storage in GRR, with some minor extensions. You
+can read about the usage in the GRR paper linked above and there is additional
+detail linked at <a href="http://www.forensicswiki.org/wiki/AFF4">http://www.forensicswiki.org/wiki/AFF4</a>
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="agent"></a> Agent
+</dt>
+<dd>
+<p>
+A platform-specific program that is installed on machines that one might want to
+investigate. It communicates with the GRR server and can perform client actions
+at the server&#8217;s request.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="client"></a> Client
+</dt>
+<dd>
+<p>
+A system that has an agent installed. Also used to refer to the specific
+instance of an agent running in that system.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="client_action"></a> Client Action
+</dt>
+<dd>
+<p>
+A client action is an action that a client can perform on behalf of the server.
+It is the base unit of work on the client. Client actions are initiated by the
+server through Flows.  Example client actions are ListDirectory,
+EnumerateFilesystems, Uninstall.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="collection"></a> Collection
+</dt>
+<dd>
+<p>
+A Collection is a logical set of objects stored in the AFF4 database. Generally
+these are a list of URNs containing a grouping of data such as Artifacts or
+Events from a client.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="datastore"></a> DataStore
+</dt>
+<dd>
+<p>
+The backend is where all AFF4 and Scheduler data is stored. It is provided as an
+abstraction to allow for replacement of the datastore without significant
+rewrite. The datastore supports read, write, querying and filtering.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="flow"></a> Flow
+</dt>
+<dd>
+<p>
+A logical collection of server or client actions which achieve a given
+objective. A flow is the core unit of work in the GRR server. For example a
+BrowserHistory flow contains all the logic to download, extract and display
+browser history from a client. Flows can call other flows to get their job
+done. E.g. A CollectBrowserHistory flow might call ListDirectory and GetFile to
+do it&#8217;s work. A flow is implemented as a class that inherits from GRRFlow.
+</p>
+</dd>
+<dt class="hdlist1">
+Frontend server
+</dt>
+<dd>
+<p>
+Server-side component that sends and receives messages back and forth from
+clients.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="hunt"></a> Hunt
+</dt>
+<dd>
+<p>
+A Hunt is a mechanism for managing the execution of a flow on a large number of
+machines. A hunt is normally used when you are searching for a specific piece of
+data across a fleet of machines. Hunts allow for monitoring and reporting of
+status.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="message"></a> Message
+</dt>
+<dd>
+<p>
+Transfer unit in GRR that transports information from a Flow to a client and
+viceversa.
+</p>
+</dd>
+<dt class="hdlist1">
+<a id="worker"></a> Worker
+</dt>
+<dd>
+<p>
+Once receiving a message from a client a worker will wake up the Flow that
+requested its results and execute it.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2013-07-19 14:52:48 EST
+</div>
+</div>
+</body>
+</html>
